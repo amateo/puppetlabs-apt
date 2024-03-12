@@ -58,10 +58,10 @@ define apt::ppa (
   $underscore_filename_no_slashes      = regsubst($underscore_filename, '/', '-', 'G')
   $underscore_filename_no_specialchars = regsubst($underscore_filename_no_slashes, '[\.\+]', '_', 'G')
 
-  $sources_list_d_filename = if versioncmp($facts['os']['release']['full'], '23.10') < 0 {
-    "${dash_filename_no_specialchars}-${release}.list"
+  if versioncmp($facts['os']['release']['full'], '23.10') < 0 {
+    $sources_list_d_filename  = "${dash_filename_no_specialchars}-${release}.list"
   } else {
-    $"${dash_filename_no_specialchars}-${release}.sources"
+    $sources_list_d_filename  = "${dash_filename_no_specialchars}-${release}.sources"
   }
 
   if versioncmp($facts['os']['release']['full'], '15.10') >= 0 and
